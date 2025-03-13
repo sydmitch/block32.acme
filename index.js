@@ -84,9 +84,8 @@ app.delete('/api/flavors/:id', async (req, res, next)=> {
 
 
 async function init() {
-  console.log("🛢️ Connecting to database:", process.env.DATABASE_URL)
   await client.connect();
-  console.log('connected to database');
+  console.log('Connected to database');
   const SQL = /*sql*/`
     DROP TABLE IF EXISTS flavors;
     CREATE TABLE flavors(
@@ -100,10 +99,11 @@ async function init() {
     INSERT INTO flavors(flavorName, is_favorite) VALUES('chocolate', FALSE);
     INSERT INTO flavors(flavorName, is_favorite) VALUES('cookies and cream', FALSE);
     INSERT INTO flavors(flavorName, is_favorite) VALUES('peanut butter cup', TRUE);
+    INSERT INTO flavors(flavorName, is_favorite) VALUES('strawberry', TRUE);
+    INSERT INTO flavors(flavorName, is_favorite) VALUES('mint chocolate chip', FALSE);
   `;
-  console.log("Creating table flavors...");
   await client.query(SQL);
-  console.log("Table created successfully.");
+  console.log("Table created successfully");
   const PORT = process.env.PORT || 3000;
   app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${PORT}`);
